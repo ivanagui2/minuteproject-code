@@ -100,6 +100,8 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	}
 
 	public List<Query> getListOfQueries() {
+		if (listOfQueries==null)
+			listOfQueries = new ArrayList<Query>();
 		return listOfQueries;
 	}
 

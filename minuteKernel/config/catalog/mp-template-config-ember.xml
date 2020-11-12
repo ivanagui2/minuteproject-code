@@ -31,32 +31,6 @@
 		outputdir="src/main/ui"
 		libdir="lib/Ember_LIB.vm">
 		
-		<!--  
-		<template name="KendoUiEntitySearchGrid" templateFileName="KendoUiEntityList.vm" 
-			file-extension="html" technicalPackage="" add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			entity-specific="true" 
-			file-prefix="kendoUiEntityList"
-			package-root="html"
-			package-name-builder-plugin="restUtils"
-			package-name-builder-method="getRenderingPackageName"				
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="REST_EXCHANGE_FORMAT" value="json"/>
-		</template>	
-		
-		<template name="KendoUiEntityCreate" templateFileName="KendoUiEntityCreate.vm" 
-			file-extension="html" technicalPackage="" add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			entity-specific="true" 
-			file-prefix="KendoUiEntityCreate"
-			package-root="html"
-			package-name-builder-plugin="restUtils"
-			package-name-builder-method="getRenderingPackageName"				
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="REST_EXCHANGE_FORMAT" value="json"/>
-		</template>	
-		-->
-		
 		<!-- SDD -->
         <template name="EmberModelInput" templateFileName="EmberModelJs.vm" 
             file-extension="ts" technicalPackage="sdd" file-suffix="In"
@@ -86,62 +60,6 @@
             scope-specific-value="query"
             />
 
-<!--             
-
-
-		<template name="SDDInputBean" templateFileName="JavaBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="sdd.in"
-			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
-			scope-specific-value="sdd-input-bean" >
-			<property name="direction" value="in"/>
-		</template>	
-
-		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="sdd.out"
-			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
-			scope-specific-value="sdd-output-bean" 
-			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnNotScalar">
-			<property name="direction" value="out"/>
-		</template>	
-
-		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
-			subdir="" outputsubdir="" technicalPackage="sdd.out"
-			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
-			scope-specific-value="sdd-output-bean" 
-			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnCardinalityMany">
-			<property name="JavaBeanTemplate" value="SDDOutputBean" />
-		</template>	
-		
-		<template name="SDDInputCompositeBean" templateFileName="JavaCompositeBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="composite.in"
-			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
-			scope-specific-value="sdd-input-composite-bean" >
-		</template>
-			
-		<template name="SDDOutputCompositeBean" templateFileName="JavaCompositeBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="composite.out"
-			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
-			scope-specific-value="sdd-output-composite-bean" >
-		</template>	
-
-
-        <template name="KendoUiSDDDirectResult" templateFileName="KendoUiSDDDirectResult.vm" 
-            file-extension="html" technicalPackage="sdd" file-suffix="DirectResult"
-            add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			package-root="html" has-updatable-nature="true"
-            scope-specific-value="query"
-            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
-            />
-            
-        <template name="KendoUiSDDDirectResult.js" templateFileName="KendoUiSDDDirectResult.js.vm" 
-            file-extension="html" technicalPackage="sdd" file-suffix="DirectResultJs"
-            add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			package-root="html" has-updatable-nature="true"
-            scope-specific-value="query"
-            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
-            /> -->
 
 	</template-target>
   
