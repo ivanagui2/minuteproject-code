@@ -23,21 +23,16 @@ export default Service.extend({
 #foreach ($composite in $package.getComposites())
 #exposeCompositeSpecific()
 #putImportCompositeRESTSDDBean()
-#*
-//outputs
-#foreach($table in ${composite.entities})
-#putImportCompositeOutputSDDBean()
--> ${sddOutputBeanClass}
-#end
-*#
+#set($functionName = $emberUtils.getComponentClassPath(${classVariableName}))
+#set ($functionVariableName = $formatUtils.firstLowerCase(${functionName}))
 	/* service to composite $className info */
-    ${classVariableName} (params) {
+    ${functionVariableName} (params) {
     	var adapter = Adapter.create();
-    	return adapter.${classVariableName}(params);
+    	return adapter.${functionName}(params);
     },
     
 	/* service to composite $className info */
-    ${classVariableName}2 (params) {
+    ${functionVariableName}2 (params) {
     	var adapter = Adapter.create();
 #foreach($table in ${composite.outputComposite.entities})
 #exposeVariableEntitySpecific()

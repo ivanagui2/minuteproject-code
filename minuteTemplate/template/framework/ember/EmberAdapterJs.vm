@@ -56,17 +56,12 @@ export default BaseAdapter.extend({
 #foreach ($composite in $package.getComposites())
 #exposeCompositeSpecific()
 #putImportCompositeRESTSDDBean()
-#*
-//outputs
-#foreach($table in ${composite.entities})
-#putImportCompositeOutputSDDBean()
--> ${sddOutputBeanClass}
-#end
-*#
+#set($functionName = $emberUtils.getComponentClassPath(${classVariableName}))
+#set ($functionVariableName = $formatUtils.firstLowerCase(${functionName}))
 	/* connector to composite $className info */
-    ${classVariableName} : function(params) {
-        return fetchData(baseUrl+'/data/sdd/${sddInputRestClass}'+filter${className}(params));
-    },
+    ${functionVariableName} (params) {
+        return fetchData(baseUrl+'/data/sdd/${sddInputRestClass}'+filter${functionVariableName}(params));
+    }
 
 #end
 #end
@@ -81,8 +76,10 @@ export default BaseAdapter.extend({
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 #foreach ($composite in $package.getComposites())
 #exposeCompositeSpecific()
+#set($functionName = $emberUtils.getComponentClassPath(${classVariableName}))
+#set ($functionVariableName = $formatUtils.firstLowerCase(${functionName}))
 /* filter for composite $className entity */
-function filter${className} (filter) {
+function filter${functionVariableName} (filter) {
 	if (filter) {
 		return appendQuery("",{
 #foreach($column in ${composite.distinctInputColumn})

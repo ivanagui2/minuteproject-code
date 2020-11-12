@@ -14,7 +14,7 @@
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1)           ,#end #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
+			#if($velocityCount>1),#end #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
 #end
 #end
 package $packageName;
@@ -75,7 +75,7 @@ import $sddCompositeDaoInterfaceImport;
 */
 @Path("/composite/${sddInputCompositeBeanClass}")
 @Produces(MediaType.APPLICATION_JSON)
-@Api(value="/sdd/${sddInputCompositeBeanClass}", description = "operation about ${sddInputCompositeBeanClass}")
+@Api(value="/composite/${sddInputCompositeBeanClass}", description = "operation about ${sddInputCompositeBeanClass}")
 public class ${className} {
 #if ($isSpringBackend)
     @Autowired
@@ -95,30 +95,18 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputCompositeBeanClass execute (
-#*
-TODO pass param from query-params
-#resourceSignature("QueryParam")
-*#
 #foreach($column in ${composite.distinctInputColumn})
 #resourceCompositeSignature("QueryParam", true)
 #end
     ) {
         return ${sddCompositeDaoInterfaceVariable}.execute(
-			new $sddInputCompositeBeanClass()
-#*
-#daoParameters()
-*#
-        );
-#*#else
-
-        return ${sddCompositeDaoInterfaceVariable}.execute(
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            #if($velocityCount>1),#end $chunkName 
+			new $sddInputCompositeBeanClass(
+#foreach($column in ${composite.distinctInputColumn})
+#putColumnParamNaming()
+				#if($velocityCount>1),#end $columnVar
 #end
+			)
         );
-#end
-*#
     }
 
 #end
