@@ -2,6 +2,7 @@ npm i ember-bootstrap
 
 npm install append-query
 ember install ember-truth-helpers
+ember install ember-cli-string-helpers
 npm i lodash
 
 ember install ember-cli-sass

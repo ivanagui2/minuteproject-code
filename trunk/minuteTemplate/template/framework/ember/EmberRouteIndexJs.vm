@@ -27,7 +27,16 @@ export default class Index${emberClass}Route extends Route {
 #end
 
 	model(params) {
-        return this.${model.name}Service.${emberClassVariable}(params);
+#if($inputBean.columns.size() > 0)
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParams()
+#columnJavaNaming()
+		if (params.$columnVar === '') params.$columnVar = null;
+#end
+#end
+#end
+		return this.${model.name}Service.${emberClassVariable}(params);
     }
     
 }

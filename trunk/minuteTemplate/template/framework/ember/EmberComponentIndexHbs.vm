@@ -15,7 +15,15 @@
 #set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
 #if ($isAutocompletion)
- {{!-- TODO autocomplete --}}
+##			{{!-- TODO autocomplete https://ember-power-select.com/docs/custom-search-action --}}
+			<PowerSelect
+			  @searchEnabled={{true}}
+			  @search={{this.${columnVar}Search}}
+			  @selected={{this.${columnVar}selected}}
+			  @onChange={{fn (mut this.selected)}} as |repo|>
+			  {{repo.name}}
+			</PowerSelect>
+			(It might fail if the API limit is exceeded)			
 #end
 #end
 
@@ -31,7 +39,7 @@
         </div>
     </div>
  
-    <div class="container">
+    <div class="col-md-12">
         <h2>Results <span class="badge badge-dark" >{{@data.${sddOutputBeanClass}.length}}</span></h2>         
         <table class="table table-condensed">
             <thead>

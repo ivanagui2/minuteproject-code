@@ -5,6 +5,22 @@
   <!-- Brand
   <a class="navbar-brand" href="#">Logo</a>
 -->
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+<BsDropdown as |dd|>
+  <dd.toggle>$package.name<span class="caret"></span></dd.toggle>
+  <dd.menu as |ddm|>
+#foreach ($query in $package.getQueries())
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($queryClassName=$formatUtils.getJavaName($table.name))
+    <ddm.item>
+      <ddm.linkTo @route="${package.name}.index${queryClassName}">${queryClassName}</ddm.linkTo>
+    </ddm.item>
+#end
+  </dd.menu>
+</BsDropdown>
+#end
+#*
   <!-- Links -->
   <ul class="navbar-nav">
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
@@ -18,6 +34,8 @@
     {{/link-to}}
 #end
 #end
+
+
 {{!--
 
     <!-- Dropdown -->
@@ -34,4 +52,5 @@
 
      --}}
 </ul>
+*#
 </nav>
