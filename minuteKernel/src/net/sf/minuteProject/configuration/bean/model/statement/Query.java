@@ -214,6 +214,11 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	// remove duplication
 	public Table getEntityFromDirection(Direction dir) {
+		//if #if ($query.isIndirection())
+		if (isIndirection()) {
+			
+		}
+		
 		Table entity = getEntityRoot(dir);
 		if (dir.equals(Direction.IN)) {
 			//add pagination

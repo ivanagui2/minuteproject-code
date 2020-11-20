@@ -76,4 +76,11 @@ public interface GeneratorBean extends Cloneable, Serializable{
     
     public void enableCache();
     
+    public String getId();
+    
+    public String getRefid();
+    
+    public default boolean isIndirection() {
+    	return getRefid()!=null; 
+    }
 }

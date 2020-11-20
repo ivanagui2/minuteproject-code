@@ -541,13 +541,15 @@ public class ModelGenerator extends AbstractGenerator {
 		StatementModel statementModel = getModel().getStatementModel();
 		if (statementModel != null) {
 			for (Query query : statementModel.getQueries().getQueries()) {
-				Table table = query.getEntity(direction);
-				if (table.getDatabase()==null) {//possible when queryParamLink used before declared
-					table.setDatabase(statementModel.getModel().getDataModel().getDatabase());
-				}
-				table = getDecoratedTable(table);
-				if (isToGenerate(table, template)) {
-					writeTemplateResult(table, template);
+				if (isIndirectionCompatible(query, template)) {
+					Table table = query.getEntity(direction);
+					if (table.getDatabase()==null) {//possible when queryParamLink used before declared
+						table.setDatabase(statementModel.getModel().getDataModel().getDatabase());
+					}
+					table = getDecoratedTable(table);
+					if (isToGenerate(table, template)) {
+						writeTemplateResult(table, template);
+					}
 				}
 			}
 		}

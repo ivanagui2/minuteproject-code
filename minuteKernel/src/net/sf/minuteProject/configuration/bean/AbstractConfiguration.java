@@ -255,5 +255,4 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 		this.displayOrder = displayOrder;
 	}
 	
-	
 }

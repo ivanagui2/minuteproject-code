@@ -368,8 +368,17 @@ public abstract class AbstractGenerator implements Generator {
 			return catalogDir;
 
 	}
+	
+	public boolean isIndirectionCompatible (GeneratorBean bean, Template template) {
+		if (bean.isIndirection() && !template.isIndirectionCompatible()) 
+			return false;
+		return true;
+	}
 
-	protected boolean isToGenerate(GeneratorBean bean, Template template) {
+	protected boolean isToGenerate (GeneratorBean bean, Template template) {
+		if (!isIndirectionCompatible(bean, template)) 
+		//if (bean.isIndirection() && !template.isIndirectionCompatible()) 
+			return false;
 		if (template.isToGenerateBasedOnModelType(bean)){
 			if (template.getCheckTemplateToGenerate() != null
 				&& template.getCheckTemplateToGenerate().equals("true")) {
