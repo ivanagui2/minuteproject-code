@@ -33,6 +33,7 @@ export default BaseAdapter.extend({
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
     //package $package.name
 #foreach ($query in $package.getQueries())
+#if(!$query.isIndirection())
 #if (!$queryUtils.isBackend($query))
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
@@ -47,6 +48,7 @@ export default BaseAdapter.extend({
     ${tableVariableName} : function(params) {
         return fetchData(baseUrl+'/data/sdd/${sddInputBeanClass}'+filter${domainClassName}(params));
     },
+#end
 #end
 #end
 #end
@@ -100,6 +102,7 @@ function filter${functionVariableName} (filter) {
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 //$package.name
 #foreach ($query in $package.getQueries())
+#if(!$query.isIndirection())
 #if (!$queryUtils.isBackend($query))
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
@@ -127,6 +130,7 @@ function filter${domainClassName} (filter) {
 	}
 	return "";
 }			
+#end
 #end
 #end
 #end

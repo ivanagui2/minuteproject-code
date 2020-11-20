@@ -62,7 +62,8 @@
 #if ($package.securityColor.hasMenuAccess)
 <li>$i18nUtils.getI18nFromDBObject(${package.displayName})
     <ul>
-#foreach ($query in $package.getQueries()) 
+#foreach ($query in $package.getQueries())
+#if(!$query.isIndirection())
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
@@ -71,6 +72,7 @@
 #exposeKendoUISddSpecific()
 #if($table.scope != 'BACKEND')
         <li><a onclick="javascript:location.href=getMenuLink('/$entityFullPath');return false;" href="/$entityFullPath"> $tableLabel</a></li>
+#end
 #end
 #end
     </ul>

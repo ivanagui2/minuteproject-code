@@ -1,11 +1,16 @@
 #exposeBackendTechnology()
+#if(!$query.isIndirection())
 #exposeDbApiRestQuerySpecific()
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
-#putImportQuerySDDBean() 
+#putImportQuerySDDBean()
+#else
+//TODO query indirection
+#end
 #exposeRESTModelCache()
 #exposeRESTModelCompress()
 #addedAreas()
+#if (!$query.isIndirection())
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
 #set ($size = $sizeColumn + $sizeChunk)
@@ -404,3 +409,4 @@ TODO change with lambda
 $!updatedAreaEnd
 $!updatedAreaImplementation
 }
+#end
