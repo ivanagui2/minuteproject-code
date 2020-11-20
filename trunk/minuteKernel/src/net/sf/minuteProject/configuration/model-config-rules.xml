@@ -281,6 +281,7 @@
 							<bean-property-setter-rule pattern="name" />
 							<set-properties-rule>
 								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="refid" prop-name="refid" />
 								<alias attr-name="package-name" prop-name="packageName" />
 								<alias attr-name="content-type" prop-name="contentType" />
 								<alias attr-name="is-write" prop-name="write" />
@@ -445,6 +446,7 @@
 								<set-next-rule methodname="addQueryFilter"
 									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
 								<set-properties-rule>
+									<alias attr-name="refid" prop-name="refid" />
 									<alias attr-name="and-where-connection" prop-name="connectionWord" />
 									<alias attr-name="omit-from-sdd-lookup-query" prop-name="omitFromSddLookupQuery" />
 								</set-properties-rule>
@@ -2138,6 +2140,7 @@
 						<bean-property-setter-rule pattern="name" />
 						<set-properties-rule>
 							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="refid" prop-name="refid" />
 							<alias attr-name="package-name" prop-name="packageName" />
 							<alias attr-name="content-type" prop-name="contentType" />
 							<alias attr-name="is-write" prop-name="write" />
@@ -2317,6 +2320,7 @@
 							<set-next-rule methodname="addQueryFilter"
 								paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
 							<set-properties-rule>
+								<alias attr-name="refid" prop-name="refid" />
 								<alias attr-name="and-where-connection" prop-name="connectionWord" />
 								<alias attr-name="omit-from-sdd-lookup-query" prop-name="omitFromSddLookupQuery" />
 							</set-properties-rule>

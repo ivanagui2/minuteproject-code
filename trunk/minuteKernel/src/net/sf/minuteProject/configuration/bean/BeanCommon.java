@@ -28,5 +28,4 @@ public class BeanCommon {
 		this.refid = refid;
 	}
 	
-	
 }

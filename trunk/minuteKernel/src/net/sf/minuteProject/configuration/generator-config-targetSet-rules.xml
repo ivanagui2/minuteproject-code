@@ -119,6 +119,7 @@
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Template"/>		
 				<set-next-rule methodname="addTemplate" paramtype="net.sf.minuteProject.configuration.bean.Template"/>	
 				<set-properties-rule>
+					<alias attr-name="is-indirection-compatible" prop-name="indirectionCompatible" />
 					<alias attr-name="package-root" prop-name="packageRoot" />
 					<alias attr-name="add-model-name" prop-name="addModelName" />
 					<alias attr-name="add-model-dir-name" prop-name="addModelDirName" />

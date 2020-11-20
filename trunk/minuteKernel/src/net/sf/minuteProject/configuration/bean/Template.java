@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.minuteProject.configuration.bean.enumeration.Extension;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
@@ -19,6 +21,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
+@Getter @Setter
 public class Template extends TemplateTarget {
 
 	public static final String FORMAT_JAVA_CLASS = "FORMAT_JAVA_CLASS";
@@ -33,6 +36,7 @@ public class Template extends TemplateTarget {
 		ANY, RDBMS, MONGODB, CMIS;
 	}
 	
+	private boolean isIndirectionCompatible=false;
 	private String templateFileName;
 	private String subdir;
 	private String outputsubdir; 
