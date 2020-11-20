@@ -10,12 +10,14 @@
   <dd.toggle>$package.name<span class="caret"></span></dd.toggle>
   <dd.menu as |ddm|>
 #foreach ($query in $package.getQueries())
+#if(!$query.isIndirection())
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($queryClassName=$formatUtils.getJavaName($table.name))
     <ddm.item>
       <ddm.linkTo @route="${package.name}.index${queryClassName}">${queryClassName}</ddm.linkTo>
     </ddm.item>
+#end
 #end
   </dd.menu>
 </BsDropdown>
