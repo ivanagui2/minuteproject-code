@@ -48,7 +48,9 @@
 #if (!$column.hasBeenDuplicated())
 #putColumnParams()
 #columnJavaNaming()
-                	<th>$columnVar</th>
+                	<th>
+                	   $columnVar
+                	</th>
 #end
 #end
             	</tr>
@@ -57,11 +59,24 @@
 {{#each @data.$sddOutputBeanClass as |item index| }} 
             	<tr>
 #foreach($column in $outputBean.columns)
+                	<td>
 #if (!$column.hasBeenDuplicated())
 #putColumnParams()
 #columnJavaNaming()
-                	<td>{{item.$columnVar}}</td>
+#if (!$column.getSeparatorCharacters())
+                		{{item.$columnVar}}
+#else
+{{#each item.$columnVar as |$columnVar| }}
+#foreach($field in $column.structuredArray)
+#set($fieldType = $convertUtils.getJavaTypeFromDBType($convertUtils.getDBFullTypeFromUMLType($field.type)))
+#set($fieldClass = $commonUtils.getJavaClassName($field.name))
+#set($fieldVar = $commonUtils.getJavaVariableName($field.name))
+						{{$columnVar.$fieldVar}}
 #end
+{{/each}}
+#end
+#end
+					</td>
 #end
             	</tr>
 {{/each}}
