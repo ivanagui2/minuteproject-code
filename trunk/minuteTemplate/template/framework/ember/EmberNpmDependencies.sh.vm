@@ -2,7 +2,19 @@ npm i ember-bootstrap
 
 npm install append-query
 ember install ember-truth-helpers
-ember install ember-cli-string-helpers
+ember install ember-cli-string-helpers 
+## TODO add in ember-cli-build.js
+#*
+https://github.com/dockyard/ember-composable-helpers
+module.exports = function(defaults) {
+  var app = new EmberApp(defaults, {
+    'ember-composable-helpers': {
+      only: ['inc', 'dec', 'pipe'],
+      except: ['filter-by']
+    }
+  });
+*#
+ember install ember-composable-helpers
 npm i lodash
 
 ember install ember-cli-sass
