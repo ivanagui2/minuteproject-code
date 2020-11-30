@@ -2,7 +2,7 @@
 #macro (JQueryAjaxSDDGet)
 #set ($sddTargetInputBeanClass = $formatUtils.getJavaName(${query.getInputBean().getName()}))
 		var result${sddTargetInputBeanClass};
-		$.ajax({
+		jQuery.ajax({
 	    	type: 'GET',
 			async: false,
 	    	url: contextPath+"/data/sdd/${sddTargetInputBeanClass}In",
@@ -14,7 +14,7 @@
 	         error:function (xhr, ajaxOptions, thrownError){
 	            alert("Error status :"+xhr.status +
 	                  "Error exception :"+thrownError);
-	         } 
+	         }
 		});
 #end
 

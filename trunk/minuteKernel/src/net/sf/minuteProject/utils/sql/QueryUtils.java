@@ -37,7 +37,6 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -520,4 +519,7 @@ public class QueryUtils {
 		return Arrays.stream(table.getColumns()).filter(c -> !c.isImplicit()).findFirst().isPresent();
 	}
 
+	public static QueryParam getFirstParam(QueryParams queryParams) {
+		return queryParams.getQueryParams().get(0);
+	}
 }

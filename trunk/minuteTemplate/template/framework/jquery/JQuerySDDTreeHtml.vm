@@ -82,7 +82,7 @@
 	 
       // 1.Load   JSON string 'keywords' from file "./data/keywords.json"
 	  
-      $.getJSON("./data/keywords.json", function(data) {
+      jQuery.getJSON("./data/keywords.json", function(data) {
         keywords=data;
 		// Refresh tree to display keywords read from json (file)
 		$('#${query.name}selected').jstree(true).settings.core.data = keywords;
@@ -123,12 +123,12 @@
         // Get checked nodes as JSON
         var selectedElms = $('#$tree-node').jstree("get_checked", true);
         //alert(JSON.stringify(selectedElms));
-        $.each(selectedElms, function() {
+        jQuery.each(selectedElms, function() {
 		    found=false;
             selectedId= this.id;
 			kwJson=this;
             // Iterate through JSON object:
-		    $.each(keywords, function(idx, obj) {
+		    jQuery.each(keywords, function(idx, obj) {
 			   if (selectedId==obj.id) {
 			      found=true;
 		          return (false); // exit each() loop
@@ -154,10 +154,10 @@
         // Get checked nodes as JSON
         var selectedElms = $('#${query.name}selected').jstree("get_checked", true);
         // Iterate through checked nodes JSON object:
-        $.each(selectedElms, function(index, object) {
+        jQuery.each(selectedElms, function(index, object) {
 		    selectedId= this.id;
 			// Iterate through keywords tree JSON object
-			$.each(keywords, function(idx, obj) {
+			jQuery.each(keywords, function(idx, obj) {
 			   if (selectedId==obj.id) {
 			     // Remove the checked node   
 			     keywords.splice(idx,1); // REMOVE 1 element at array[idx]

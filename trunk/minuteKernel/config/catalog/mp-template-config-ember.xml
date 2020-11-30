@@ -101,8 +101,30 @@
             file-name-builder-plugin="emberUtils"
 			file-name-builder-method="getEmberFileName"
             />
-            
-	</template-target>
+
+		<!-- composite -->
+		 <template
+				 name="EmberComponentCompositeHbs" templateFileName="EmberComponentCompositeHbs.vm"
+				 file-extension="hbs" technicalPackage="page" file-prefix="composite"
+				 add-model-dir-name="false"
+				 add-package-name="false" add-business-package-dir-name="true"
+				 package-root=""
+				 scope-specific-value="composite"
+				 file-name-builder-plugin="emberUtils"
+				 file-name-builder-method="getEmberFileName"
+		 />
+		 <template
+				 name="EmberComponentCompositeJs" templateFileName="EmberComponentCompositeJs.vm"
+				 file-extension="js" technicalPackage="page" file-prefix="composite"
+				 add-model-dir-name="false"
+				 add-package-name="false" add-business-package-dir-name="true"
+				 package-root=""
+				 scope-specific-value="composite"
+				 file-name-builder-plugin="emberUtils"
+				 file-name-builder-method="getEmberFileName"
+		 />
+
+	 </template-target>
 		
    	<template-target 
 	   	name="Ember client"
@@ -145,18 +167,32 @@
             file-name-builder-plugin="emberUtils"
 			file-name-builder-method="getEmberFileName"
             />
-            
-        <!-- router to check already done
-		<template 
-			name="EmberRouterJs" templateFileName="EmberRouterJs.vm" 
-            file-extension="js" technicalPackage="" file-suffix=""
-            add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			package-root=""
-            model-specific="true"
-            />
-            -->
-        <!-- main routes index -->
+
+
+		<!-- composite route -->
+		<template
+				name="EmberRouteCompositeJs" templateFileName="EmberRouteCompositeJs.vm"
+				file-extension="js" technicalPackage="routes" file-prefix="composite"
+				add-model-dir-name="false"
+				add-package-name="false" add-business-package-dir-name="true"
+				package-root=""
+				scope-specific-value="composite"
+				file-name-builder-plugin="emberUtils"
+				file-name-builder-method="getEmberFileName"
+		/>
+		<template
+				name="EmberRouteCompositeHbs" templateFileName="EmberRouteCompositeHbs.vm"
+				file-extension="hbs" technicalPackage="templates" file-prefix="composite"
+				add-model-dir-name="false"
+				add-package-name="false" add-business-package-dir-name="true"
+				package-root=""
+				scope-specific-value="composite"
+				file-name-builder-plugin="emberUtils"
+				file-name-builder-method="getEmberFileName"
+		/>
+
+
+		<!-- main routes index -->
 		<template 
 			name="EmberRouteIndexJs" templateFileName="EmberRouteIndexJs.vm" 
             file-extension="js" technicalPackage="routes" file-prefix="index"
@@ -180,7 +216,7 @@
             />
                         
 		<template 
-			name="EmberRouteIndexHbs" templateFileName="EmberRouteIndexHbs.vm" 
+			name="EmberRouteIndexHbs" templateFileName="EmberRouteIndexHbs.vm"
             file-extension="hbs" technicalPackage="templates" file-prefix="index"
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"

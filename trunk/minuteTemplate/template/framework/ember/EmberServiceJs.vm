@@ -64,7 +64,10 @@ export default Service.extend({
 #exposeVariableEntitySpecific()
 #putImportCompositeOutputSDDBean()
 			${domainVariableName} : ${domainVariableName}Promise,
-#end			
+#end
+## add queryparam: when path params are passed they are not available at the route template (not like queryparams)
+## thus add them here
+			params : params,
 		};
     	return hash(promises);
 #* .then(d => {

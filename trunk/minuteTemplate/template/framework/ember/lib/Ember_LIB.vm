@@ -2,6 +2,16 @@
 #set($isOctane=$template.getPropertyValue("ember-octane","true"))
 #end
 
+#macro (exposeEmberCompositeSpecific)
+#exposeEmberSpecific()
+#exposeCompositeSpecific()
+#exposeEmberTemplate()
+#set ($modelEmberServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberService))
+#set ($importEmberCompositeComponentIndexFullPath = $commonUtils.getLevelTemplateFullPath($composite, $template, $templateEmberComponentCompositeIndexHbs))
+#set ($importEmberCompositeComponentRouteFullPath = $commonUtils.getLevelTemplateFullPath($composite, $template, $templateEmberRouteCompositeIndexJs))
+#set ($importEmberCompositeComponentIndexPath = $emberUtils.getComponentPath($importEmberCompositeComponentIndexFullPath))
+#end
+
 #macro (exposeEmberQuerySpecific)
 #exposeEmberSpecific()
 #exposeQuerySpecific()
@@ -9,7 +19,6 @@
 #exposeVariableEntitySpecific()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
-#exposeEmberSpecific()
 #exposeEmberTemplate()
 #set ($modelEmberServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberService))
 #set ($importEmberQueryComponentIndexFullPath = $commonUtils.getLevelTemplateFullPath($query, $template, $templateEmberComponentIndexHbs))
@@ -27,6 +36,7 @@
 #exposeVariableModelSpecific()
 #exposeEmberSpecific()
 #exposeEmberTemplate()
+#set ($modelEmberServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberService))
 #set ($modelEmberBaseAdapterClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberBaseAdapter))
 #set ($modelEmberBaseAdapterVariable = $commonUtils.getJavaNameVariableFirstLetter($modelEmberBaseAdapterClass))
 #set ($modelEmberBaseAdapterImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateEmberBaseAdapter))
@@ -40,6 +50,8 @@
 #set ($templateEmberRouteIndexJs = "EmberRouteIndexJs")
 #set ($templateEmberComponentIndexHbs = "EmberComponentIndexHbs")
 #set ($templateEmberControllerIndexJs = "EmberControllerIndexJs")
+#set ($templateEmberComponentCompositeIndexHbs = "EmberComponentCompositeHbs")
+#set ($templateEmberRouteCompositeIndexJs = "EmberRouteCompositeJs")
 #end
 
 #macro(putEmberMenuPackage)
