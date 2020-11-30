@@ -219,7 +219,7 @@ function ajaxSyncFetch(url, successCallBack, errorCallBack, cached) {
     if (!cached) {
         cached = false;
     }
-    $.ajax({
+    jQuery.ajax({
         type: 'GET',
         url: url,
         contentType: 'application/json; charset=utf-8',

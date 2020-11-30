@@ -15,5 +15,8 @@ public class VelocityUtils {
 	public static String getCommentChunk() {
 		return "##";
 	}
-	
+
+	public static int getIndexFromCount(int count) {
+		return count - 1; //for some obscure reason $foreach.index does not work
+	}
 }

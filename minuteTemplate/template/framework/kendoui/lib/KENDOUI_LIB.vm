@@ -269,7 +269,7 @@
 #*TODO FOR 0.9.10 check if works with single model
 #foreach ($model in $configuration.allModels)
 #exposeKendoUIModelSpecific()
-        	$.ajax({
+        	jQuery.ajax({
             	url: contextPath+"/$kendoUiMenuStructurePath",
             	success: function (data) { $('#menu').append(data); },
             	dataType: 'html',
@@ -281,7 +281,7 @@
 *#
 
 #exposeKendoUIGeneratorBeanSpecific()
-        	$.ajax({
+        	jQuery.ajax({
             	url: contextPath+"/$kendoUiMenuStructurePath",
             	success: function (data) { $('#menu').append(data); },
             	dataType: 'html',
@@ -562,7 +562,7 @@ $!updatedAreaEnd
 #set($targetQueryClassName = $commonUtils.getJavaClassName($targetQuery))
 		var targetUrl = contextPath+"/data/sdd/${targetQueryClassName}In"+query;
 
-		$.ajax({
+		jQuery.ajax({
 			cache: false,
 			type: "GET",
 			url: targetUrl,
@@ -834,15 +834,15 @@ $!updatedAreaEnd
 #macro (exposePerformWriteSDD)
 #exposeQuerySDD()
         $("#sdd-info").html("");
-        $.ajax({
+        jQuery.ajax({
             url: dataSourceUrl,
             success: function (data) {
             	$("#sdd-info").html("Action performed");
-            	$.growl.notice({message: "Action performed!" });
+            	jQuery.growl.notice({message: "Action performed!" });
             },
             error: function (data) { 
             	$("#sdd-info").html("Action not performed! "+data.responseText);
-                $.growl.error({message: "Action not performed! "+data.responseText });
+                jQuery.growl.error({message: "Action not performed! " + data.responseText });
             },
             dataType: 'html',
             async : false

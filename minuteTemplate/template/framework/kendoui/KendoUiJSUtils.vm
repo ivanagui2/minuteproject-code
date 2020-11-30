@@ -1,5 +1,5 @@
 (function($, undefined) {
-	$.extend($.fn, {
+	jQuery.extend(jQuery.fn, {
         busyIndicator: function (c) {
             b = $(this);
             var d = b.find(".k-loading-mask");
@@ -8,7 +8,7 @@
 	});
 })(jQuery);
 
-$.fn.scrollView = function() {
+jQuery.fn.scrollView = function() {
   return this.each(function() {
       $('html, body').animate({
           scrollTop: $(this).offset().top
@@ -16,12 +16,12 @@ $.fn.scrollView = function() {
   });
 }
 
-$.fn.enable = function() {
+jQuery.fn.enable = function() {
 	$(this).removeAttr("disabled");
 	$(this).removeClass("k-state-disabled");
 }
 
-$.fn.disable = function() {
+jQuery.fn.disable = function() {
 	$(this).attr("disabled", "disabled");
 	$(this).addClass("k-state-disabled");
 }

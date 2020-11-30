@@ -592,7 +592,8 @@ $!updatedAreaEnd
 #foreach($field in $column.structuredArray)
 #set($fieldType = $convertUtils.getJavaTypeFromDBType($convertUtils.getDBFullTypeFromUMLType($field.type)))
 #set($fieldClass = $commonUtils.getJavaClassName($field.name))
-										c.set$fieldClass(uA[$foreach.index]);
+#set($vIndex = $velocityUtils.getIndexFromCount(${velocityCount}))
+										c.set$fieldClass(uA[${vIndex}]);
 #end
 									}
 									return c;
@@ -828,7 +829,9 @@ $!updatedAreaEnd
 
 #macro(injectGetStatementMethodForArrayFilter)
 #foreach ($filter in $query.queryFilters)
-#set($column = $queryUtils.getInputBeanColumn($query, $filter.queryParams.queryParams[0].name))
+##set($filterQueryParamFirst = $filter.queryParams.queryParams[0])
+#set($filterQueryParamFirst = $queryUtils.getFirstParam($filter.queryParams))
+#set($column = $queryUtils.getInputBeanColumn($query, $filterQueryParamFirst.name))
 ## ###ATTENTION filter with ?... only works with one param
 
 	private String getChunk${filter.name} (${sddInputBeanClass} ${sddInputBeanVariable}, String chunk) {
