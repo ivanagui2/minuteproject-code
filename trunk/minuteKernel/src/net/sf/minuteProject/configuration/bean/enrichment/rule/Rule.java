@@ -1,4 +1,4 @@
-package net.sf.minuteProject.configuration.bean.enrichment.rule
+package net.sf.minuteProject.configuration.bean.enrichment.rule;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.types.selectors.ExtendSelector;
@@ -9,26 +9,26 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.utils.FormatUtils;
 
-class Rule <T extends GeneratorBean> extends AbstractConfiguration{
+public class Rule <T extends GeneratorBean> extends AbstractConfiguration{
 
-	String getName (T t) {
+	public String getName (T t) {
 		if (StringUtils.isEmpty(getName()))
-			FormatUtils.getJavaName t.getAlias()
+			return FormatUtils.getJavaName(t.getAlias());
 		else {
 			if (this instanceof Action) {
-				getName()
+				return getName();
 			} else {
-				FormatUtils.getJavaName getName()
+				return FormatUtils.getJavaName(getName());
 			}
 		}
 	}
 	
-	protected String value, errorMessage
+	protected String value, errorMessage;
 	
-	boolean isToImplement = false
+	boolean isToImplement = false;
 	
 	boolean isToImplement() {
-		isToImplement
+		return isToImplement;
 	}
 	
 	public String getValue() {
